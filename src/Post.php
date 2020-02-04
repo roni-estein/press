@@ -6,10 +6,26 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
+    
+    
+    protected $table = 'press_posts';
+    
+    
     /**
      * @var array
      */
     protected $guarded = [];
+    
+    
+    
+    
+    /**
+     * Get the tags associated with the Post.
+     */
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'press_post_tags');
+    }
 
     /**
      * Easy accessor for any of the fields in the extra column.
