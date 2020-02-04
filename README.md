@@ -1,5 +1,5 @@
 # Press
-An elegant markdown-powered blog for the Laravel framework.
+An elegant markdown-powered blog for the Laravel framework. This package was originally adapted from https://github.com/vicgonvt/press.git. However, since it was only compatible with Laravel 5.x and not 6.x for several months. I'll maintain this newer version.
 
 # Install
 
@@ -8,12 +8,12 @@ Add these lines to your `composer.json` file
 ```json
 {
     "require": {
-        "vicgonvt/press": "dev-master"
+        "roniestein/press": "dev-master"
     },
     "repositories": [
         {
             "type": "git",
-            "url": "https://github.com/vicgonvt/press.git"
+            "url": "https://github.com/roniestein/press.git"
         }
     ]
 }
@@ -45,7 +45,7 @@ The last step in the installation, is to create a directory for your markdown fi
 
 ### Sample Post
 
-To create your first post, here's a sample markdown file to get you started. Copy and paste it into a `.md` file in your blogs diretory.
+To create your first post, here's a sample markdown file to get you started. Copy and paste it into a `.md` file in your blogs directory.
 
 ```
 ---

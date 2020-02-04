@@ -1,9 +1,9 @@
 <?php
 
-namespace vicgonvt\Press\Drivers;
+namespace roniestein\Press\Drivers;
 
 use Illuminate\Support\Str;
-use vicgonvt\Press\PressFileParser;
+use roniestein\Press\PressFileParser;
 
 abstract class Driver
 {

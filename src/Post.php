@@ -1,6 +1,6 @@
 <?php
 
-namespace vicgonvt\Press;
+namespace roniestein\Press;
 
 use Illuminate\Database\Eloquent\Model;
 

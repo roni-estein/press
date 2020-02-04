@@ -1,9 +1,9 @@
 <?php
 
-namespace vicgonvt\Press\Tests;
+namespace roniestein\Press\Tests;
 
 use Carbon\Carbon;
-use vicgonvt\Press\PressFileParser;
+use roniestein\Press\PressFileParser;
 
 class PressFileParserTest extends TestCase
 {

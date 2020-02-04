@@ -1,10 +1,10 @@
 <?php
 
-namespace vicgonvt\Press\Repositories;
+namespace roniestein\Press\Repositories;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use vicgonvt\Press\Post;
+use roniestein\Press\Post;
 
 class PostRepository
 {

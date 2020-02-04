@@ -1,11 +1,11 @@
 <?php
 
-namespace vicgonvt\Press;
+namespace roniestein\Press;
 
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use ReflectionClass;
-use vicgonvt\Press\Facades\Press;
+use roniestein\Press\Facades\Press;
 
 class PressFileParser
 {
@@ -106,7 +106,7 @@ class PressFileParser
             $class = $this->getField(Str::title($field));
 
             if ( ! class_exists($class) && ! method_exists($class, 'process')) {
-                $class = 'vicgonvt\\Press\\Fields\\Extra';
+                $class = 'roniestein\\Press\\Fields\\Extra';
             }
 
             $this->data = array_merge(

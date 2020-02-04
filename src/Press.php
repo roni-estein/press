@@ -1,6 +1,6 @@
 <?php
 
-namespace vicgonvt\Press;
+namespace roniestein\Press;
 
 use Illuminate\Support\Str;
 
@@ -29,7 +29,7 @@ class Press
     public function driver()
     {
         $driver = Str::title(config('press.driver'));
-        $class = 'vicgonvt\Press\Drivers\\' . $driver . 'Driver';
+        $class = 'roniestein\Press\Drivers\\' . $driver . 'Driver';
 
         return new $class;
     }

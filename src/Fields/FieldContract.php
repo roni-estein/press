@@ -1,6 +1,6 @@
 <?php
 
-namespace vicgonvt\Press\Fields;
+namespace roniestein\Press\Fields;
 
 abstract class FieldContract
 {

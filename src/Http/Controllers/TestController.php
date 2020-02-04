@@ -1,6 +1,6 @@
 <?php
 
-namespace vicgonvt\Press\Http\Controllers;
+namespace roniestein\Press\Http\Controllers;
 
 use Illuminate\Routing\Controller;
 

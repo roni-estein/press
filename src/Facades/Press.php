@@ -1,6 +1,6 @@
 <?php
 
-namespace vicgonvt\Press\Facades;
+namespace roniestein\Press\Facades;
 
 use Illuminate\Support\Facades\Facade;
 

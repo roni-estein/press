@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use vicgonvt\Press\Facades\Press;
+use roniestein\Press\Facades\Press;
 
 class PressServiceProvider extends ServiceProvider
 {

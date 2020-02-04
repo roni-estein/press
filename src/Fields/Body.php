@@ -1,8 +1,8 @@
 <?php
 
-namespace vicgonvt\Press\Fields;
+namespace roniestein\Press\Fields;
 
-use vicgonvt\Press\MarkdownParser;
+use roniestein\Press\MarkdownParser;
 
 class Body extends FieldContract
 {

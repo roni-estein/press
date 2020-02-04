@@ -1,9 +1,9 @@
 <?php
 
-namespace vicgonvt\Press\Tests;
+namespace roniestein\Press\Tests;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use vicgonvt\Press\Post;
+use roniestein\Press\Post;
 
 class SavePostsTest extends TestCase
 {

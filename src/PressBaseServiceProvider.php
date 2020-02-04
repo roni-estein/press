@@ -1,10 +1,10 @@
 <?php
 
-namespace vicgonvt\Press;
+namespace roniestein\Press;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-use vicgonvt\Press\Facades\Press;
+use roniestein\Press\Facades\Press;
 
 class PressBaseServiceProvider extends ServiceProvider
 {
@@ -86,7 +86,7 @@ class PressBaseServiceProvider extends ServiceProvider
     {
         return [
             'prefix' => Press::path(),
-            'namespace' => 'vicgonvt\Press\Http\Controllers',
+            'namespace' => 'roniestein\Press\Http\Controllers',
         ];
     }
 
@@ -98,7 +98,7 @@ class PressBaseServiceProvider extends ServiceProvider
     protected function registerFacades()
     {
         $this->app->singleton('Press', function ($app) {
-            return new \vicgonvt\Press\Press();
+            return new \roniestein\Press\Press();
         });
     }
 

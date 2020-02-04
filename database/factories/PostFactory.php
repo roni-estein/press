@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Str;
-use vicgonvt\Press\Post;
+use roniestein\Press\Post;
 
 $factory->define(Post::class, function (Faker\Generator $faker) {
     return [

@@ -1,8 +1,8 @@
 <?php
 
-namespace vicgonvt\Press\Tests;
+namespace roniestein\Press\Tests;
 
-use vicgonvt\Press\PressBaseServiceProvider;
+use roniestein\Press\PressBaseServiceProvider;
 
 class TestCase extends \Orchestra\Testbench\TestCase
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace vicgonvt\Press\Tests;
+namespace roniestein\Press\Tests;
 
-use vicgonvt\Press\MarkdownParser;
+use roniestein\Press\MarkdownParser;
 
 class MarkdownTest extends TestCase
 {
