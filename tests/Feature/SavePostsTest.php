@@ -24,7 +24,7 @@ class SavePostsTest extends TestCase
         $post = factory(Post::class)->create();
         $tags = factory(Tag::class,2)->create();
         $post->tags()->sync($tags);
-    
+        
         $this->assertCount(2,Tag::all());
         $this->assertCount(2,$post->tags);
     }

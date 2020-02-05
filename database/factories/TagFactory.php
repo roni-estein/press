@@ -3,9 +3,11 @@
 use Illuminate\Support\Str;
 use roniestein\Press\Tag;
 
+/** @var Illuminate\Database\Eloquent\Factory $factory */
+
 $factory->define(Tag::class, function (Faker\Generator $faker) {
     return [
-        'text' => $faker->word,
+        'text' => $faker->words(3,true),
         'slug' => function ($model) { return Str::slug($model['text']); },
     ];
 });
