@@ -35,7 +35,7 @@ class FileDriver extends Driver
     {
         if ( ! File::exists($this->config['path'])) {
             throw new FileDriverDirectoryNotFoundException(
-                'Director: at \'' . $this->config['path'] . '\' does not exist. ' .
+                'Directory: at \'' . $this->config['path'] . '\' does not exist. ' .
                 'Check the directory path in the config file.'
             );
         }
