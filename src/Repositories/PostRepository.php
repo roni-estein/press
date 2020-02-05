@@ -23,6 +23,7 @@ class PostRepository
             'slug' => Str::slug($post['title']),
             'title' => $post['title'],
             'body' => $post['body'],
+            'published_at' => $post['published_at'] ?? null,
             'extra' => $this->extra($post),
         ]);
     }
@@ -37,7 +38,7 @@ class PostRepository
     private function extra($post)
     {
         $extra = (array)json_decode($post['extra'] ?? '[]');
-        $attributes = Arr::except($post, ['title', 'body', 'identifier', 'extra']);
+        $attributes = Arr::except($post, ['title', 'body', 'identifier', 'published_at', 'extra']);
 
         return json_encode(array_merge($extra, $attributes));
     }
