@@ -102,13 +102,11 @@ class PressFileParser
     protected function processFields()
     {
         foreach ($this->data as $field => $value) {
-
-            $class = $this->getField(Str::title($field));
-
+            $class = $this->getField(Str::studly($field));
             if ( ! class_exists($class) && ! method_exists($class, 'process')) {
                 $class = 'roniestein\\Press\\Fields\\Extra';
             }
-
+            
             $this->data = array_merge(
                 $this->data,
                 $class::process($field, $value, $this->data)
@@ -128,7 +126,7 @@ class PressFileParser
     {
         foreach (Press::availableFields() as $availableField) {
             $class = new ReflectionClass($availableField);
-
+            
             if ($class->getShortName() == $field) {
                 return $class->getName();
             }
