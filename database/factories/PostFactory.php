@@ -11,6 +11,7 @@ $factory->define(Post::class, function (Faker\Generator $faker) {
         'identifier' => Str::random(),
         'slug' => Str::slug($faker->sentence),
         'title' => $faker->sentence,
+        'description' => $faker->sentence,
         'body' => $faker->paragraph,
         'published_at' => function() use ($faker) {
             return ($faker->boolean ? Carbon::today()->addDays($faker->numberBetween(-2,2)): null);
