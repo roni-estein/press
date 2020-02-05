@@ -41,14 +41,17 @@ class PressBaseServiceProvider extends ServiceProvider
      */
     private function registerResources()
     {
-        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+        
+        if($this->app->runningUnitTests()){
+            $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+        }
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'press');
 
         $this->registerFacades();
         $this->registerRoutes();
         $this->registerFields();
     }
-
+    
     /**
      * Register the package's publishable resources.
      *
@@ -56,6 +59,10 @@ class PressBaseServiceProvider extends ServiceProvider
      */
     protected function registerPublishing()
     {
+        $this->publishes([
+            __DIR__.'/../database/migrations/' => database_path('migrations')],
+            'press-migrations');
+        
         $this->publishes([
             __DIR__.'/../config/press.php' => config_path('press.php'),
         ], 'press-config');

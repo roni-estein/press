@@ -29,10 +29,11 @@ class SavePostsTest extends TestCase
                 'id' => 1,
                 'title' => 'My Title',
                 "identifier" => "markfile1md",
+                "description" => "Description here",
                 "slug" => "my-title",
                 "body" => "<h1>Heading</h1>\n<p>Blog post body here</p>",
-                "extra" => "{\"description\":\"Description here\"}",
-                "published_at" => "2020-02-01 00:00:00",
+                "extra"=> "{\"chicken\":\"soup\"}",
+                "published_at" => null,
             ]
         );
     }

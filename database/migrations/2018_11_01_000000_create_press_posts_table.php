@@ -13,8 +13,9 @@ class CreatePressPostsTable extends Migration
             $table->string('identifier')->index();
             $table->string('slug')->unique()->index();
             $table->string('title');
+            $table->string('description');
             $table->text('body');
-            $table->text('extra');
+            $table->text('extra')->nullable();
             $table->timestamp('published_at')->nullable();
             $table->timestamps();
 
