@@ -10,7 +10,7 @@ class PressFileParserTest extends TestCase
     /** @test */
     public function the_head_and_body_gets_split()
     {
-        $pressFileParser = (new PressFileParser(__DIR__.'/../blogs/MarkFile1.md'));
+        $pressFileParser = (new PressFileParser(__DIR__ . '/../scenerios/blog-without-tags/MarkFile1.md'));
 
         $data = $pressFileParser->getRawData();
 
@@ -33,7 +33,7 @@ class PressFileParserTest extends TestCase
     /** @test */
     public function each_head_field_gets_separated()
     {
-        $pressFileParser = (new PressFileParser(__DIR__.'/../blogs/MarkFile1.md'));
+        $pressFileParser = (new PressFileParser(__DIR__ . '/../scenerios/blog-without-tags/MarkFile1.md'));
 
         $data = $pressFileParser->getData();
 
@@ -44,7 +44,7 @@ class PressFileParserTest extends TestCase
     /** @test */
     public function the_body_gets_saved_and_trimmed()
     {
-        $pressFileParser = (new PressFileParser(__DIR__.'/../blogs/MarkFile1.md'));
+        $pressFileParser = (new PressFileParser(__DIR__ . '/../scenerios/blog-without-tags/MarkFile1.md'));
 
         $data = $pressFileParser->getData();
 

@@ -10,9 +10,9 @@ class CreatePressTagsTable extends Migration
     {
         Schema::create('press_tags', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('text')->index();
             $table->string('slug')->unique()->index();
-            
+            $table->string('text')->index();
+    
             $table->timestamps();
         });
     }

@@ -2,10 +2,12 @@
 
 namespace roniestein\Press\Repositories;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 use roniestein\Press\Post;
+use roniestein\Press\Tag;
 
 class PostRepository
 {
@@ -20,10 +22,13 @@ class PostRepository
     {
         
         $attributes = $this->getFormattedAttributesArray($post);
-
-        Post::updateOrCreate([
+        $currentPost = Post::updateOrCreate([
             'identifier' => $post['identifier'],
         ], $attributes);
+        
+        
+        $this->saveOrUpdateTagsOn($currentPost, $post['tags'] ?? '');
+        
     }
     
     /**
@@ -36,7 +41,7 @@ class PostRepository
     private function extra($post)
     {
         $extra = (array)json_decode($post['extra'] ?? '[]');
-        $attributes = Arr::except($post, ['title', 'body', 'identifier', 'published_at', 'extra']);
+        $attributes = Arr::except($post, ['title', 'body', 'identifier', 'published_at', 'extra', 'tags']);
         
         return json_encode(array_merge($extra, $attributes));
     }
@@ -44,22 +49,48 @@ class PostRepository
     private function getFormattedAttributesArray($post)
     {
         $extra = collect(
-                (array)json_decode($post['extra'] ?? '{}'))
-            ;
+            (array)json_decode($post['extra'] ?? '{}'));
         $fields = collect($post)
             ->put('slug', Str::slug($post['title']))
             ->diffKeys($extra)
-            ->except('identifier')
-        ;
+            ->except('identifier', 'tags');
         
         $emptyfieldList = collect(Schema::getColumnListing((new Post)->getTable()))
             ->reject(function ($name) {
-                return in_array($name, ['id','identifier','created_at','updated_at']);
-            })->flatten()->flip()->map(function($item){
+                return in_array($name, ['id', 'identifier', 'created_at', 'updated_at']);
+            })->flatten()->flip()->map(function ($item) {
                 return null;
             });
         
         
         return $fields->union($emptyfieldList)->toArray();
+    }
+    
+    private function saveOrUpdateTagsOn($post, string $tagString = '')
+    {
+
+        $tags = Collection::make(explode(',', $tagString));
+
+        if ($tags->isNotEmpty()) {
+
+            $tags = $tags
+                ->reject(function ($tag) {
+                    return empty(trim($tag));
+                })
+                ->transform(function ($tag) {
+                    return Tag::firstOrCreate([
+                        'slug' => Str::slug($tag),
+                    ], [
+                        'text' => trim(Str::lower($tag)),
+                    ]);
+                });
+            
+            $post->tags()->sync($tags);
+        }else{
+            
+            $post->tags()->detach();
+        }
+        
+        
     }
 }

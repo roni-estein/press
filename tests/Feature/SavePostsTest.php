@@ -18,7 +18,7 @@ class SavePostsTest extends TestCase
     public function a_post_can_be_saved(): void
     {
         
-        $posts = $this->mockFetchPosts(__DIR__ . '/../blogs/');
+        $posts = $this->mockFetchPosts(__DIR__ . '/../scenerios/blog-without-tags');
         foreach ($posts as $post) {
             (new PostRepository)->save($post);
         }
@@ -36,6 +36,92 @@ class SavePostsTest extends TestCase
                 "published_at" => null,
             ]
         );
+    }
+    
+    /** @test */
+    public function tags_will_be_saved_when_a_post_is_created(): void
+    {
+        $posts = $this->mockFetchPosts(__DIR__ . '/../scenerios/blog-with-tags');
+        foreach ($posts as $post) {
+            (new PostRepository)->save($post);
+        }
+    
+        $this->assertCount(1, Post::all());
+        $this->assertDatabaseHas('press_posts',
+            [
+                'id' => 1,
+                'title' => 'My Title',
+                "identifier" => "markfile1md",
+                "description" => "Description here",
+                "slug" => "my-title",
+                "body" => "<h1>Heading</h1>\n<p>Blog post body here</p>",
+                "extra"=> "{\"chicken\":\"soup\"}",
+                "published_at" => null,
+            ]
+        );
+    
+        $this->assertCount(4, Tag::all());
+        $this->assertCount(4, Post::first()->tags);
+        
+    }
+    
+    /** @test */
+    public function duplicate_tags_will_not_be_saved_twice(): void
+    {
+        Tag::create(['text'=>'chicken', 'slug'=>'chicken']);
+        $this->assertCount(1, Tag::all());
+    
+        $posts = $this->mockFetchPosts(__DIR__ . '/../scenerios/blog-with-tags');
+        foreach ($posts as $post) {
+            (new PostRepository)->save($post);
+        }
+    
+        $this->assertCount(1, Post::all());
+        $this->assertDatabaseHas('press_posts',
+            [
+                'id' => 1,
+                'title' => 'My Title',
+                "identifier" => "markfile1md",
+                "description" => "Description here",
+                "slug" => "my-title",
+                "body" => "<h1>Heading</h1>\n<p>Blog post body here</p>",
+                "extra"=> "{\"chicken\":\"soup\"}",
+                "published_at" => null,
+            ]
+        );
+    
+        $this->assertCount(4, Tag::all());
+        $this->assertCount(4, Post::first()->tags);
+        
+    }
+    
+    /** @test */
+    public function tags_will_be_removed_from_post_if_removed_from_markup(): void
+    {
+        $posts = $this->mockFetchPosts(__DIR__ . '/../scenerios/blog-with-tags');
+        
+        foreach ($posts as $post) {
+            
+            (new PostRepository)->save($post);
+        }
+    
+        $this->assertCount(4, Post::first()->tags);
+        
+        $posts = $this->mockFetchPosts(__DIR__ . '/../scenerios/revised-blog-with-tags');
+        
+        $this->clearPosts();
+        foreach ($posts as $post) {
+            (new PostRepository)->save($post);
+        }
+        $this->assertCount(1, Post::first()->tags);
+    
+        $posts = $this->mockFetchPosts(__DIR__ . '/../scenerios/blog-without-tags');
+        
+        $this->clearPosts();
+        foreach ($posts as $post) {
+            (new PostRepository)->save($post);
+        }
+        $this->assertCount(0, Post::first()->tags);
     }
     
     /** @test */
@@ -94,5 +180,10 @@ class SavePostsTest extends TestCase
             (new PressFileParser($content))->getData(),
             ['identifier' => Str::slug($identifier)]
         );
+    }
+    
+    protected function clearPosts(): void
+    {
+        $this->posts = [];
     }
 }
