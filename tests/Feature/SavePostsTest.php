@@ -5,7 +5,6 @@ namespace roniestein\Press\Tests;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
-use roniestein\Press\Author;
 use roniestein\Press\Post;
 use roniestein\Press\PressFileParser;
 use roniestein\Press\Repositories\PostRepository;
@@ -105,6 +104,29 @@ class SavePostsTest extends TestCase
         
     }
     
+    
+    /** @test */
+    public function a_post_with_a_header_image_can_be_processed(): void
+    {
+        $posts = $this->mockFetchPosts(__DIR__ . '/../scenerios/blog-with-header-image');
+        foreach ($posts as $post) {
+            (new PostRepository)->save($post);
+        }
+        $this->assertDatabaseHas('press_posts',
+            [
+                'id' => 1,
+                'title' => 'My Title',
+                "identifier" => "markfile1md",
+                "description" => "Description here",
+                "author_type" => "roniestein\\Press\\Author",
+                "author_id" => "1",
+                "slug" => "my-title",
+                "body" => "<h1>Heading</h1>\n<p>Blog post body here</p>",
+                "extra" => "{\"header-image\":\"test-image.jpg\",\"header-image-alt\":\"Jelly Beans\",\"header-image-photographer\":\"Photo Bob\",\"chicken\":\"soup\"}",
+                "published_at" => null,
+            ]);
+    }
+    
     /** @test */
     public function tags_will_be_removed_from_post_if_removed_from_markup(): void
     {
@@ -171,8 +193,8 @@ class SavePostsTest extends TestCase
         $post = factory(Post::class)->create([
             'author_id' => $this->author->id,
             'author_type' => get_class($this->author),
-            
-            ]);
+        
+        ]);
         
         $this->assertTrue($post->author->is($this->author));
         
@@ -197,8 +219,7 @@ class SavePostsTest extends TestCase
                 (new PostRepository)->save($post);
             }
             $this->fail('No Http exception was thrown when a blog was posted without an author field present');
-        }
-        catch (HttpException $e){
+        } catch (HttpException $e) {
             //An exception  was thrown
             $this->assertEquals($e->getStatusCode(), 422);
             $this->assertStringContainsString(

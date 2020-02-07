@@ -122,6 +122,8 @@ class PressBaseServiceProvider extends ServiceProvider
             Fields\PublishedAt::class,
             Fields\Tags::class,
             Fields\Author::class,
+            Fields\HeaderImage::class,
+            
         ]);
     }
 }
