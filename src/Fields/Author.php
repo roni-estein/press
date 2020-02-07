@@ -18,12 +18,7 @@ class Author extends FieldContract
      */
     public static function process($fieldType, $fieldValue, $data)
     {
-        $raw = factory('roniestein\Press\Author')->raw(['slug' => 'juan-valdez']);
-        $author = Press::authorModel()::firstOrCreate([
-            'slug' => $raw['slug']
-            ],
-            $raw);
-
+        
         try {
             $id = Press::authorModel()::where('slug', $fieldValue)->firstOrFail()->id;
             

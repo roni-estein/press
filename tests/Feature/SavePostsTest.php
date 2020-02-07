@@ -15,6 +15,8 @@ class SavePostsTest extends TestCase
 {
     use RefreshDatabase;
     
+    protected $author;
+    
     /** @test */
     public function a_post_can_be_saved(): void
     {
@@ -165,17 +167,20 @@ class SavePostsTest extends TestCase
     /** @test */
     public function a_post_has_an_author(): void
     {
-        $post = factory(Post::class)->create();
+        $post = factory(Post::class)->create([
+            'author_id' => $this->author->id,
+            'author_type' => get_class($this->author),
+            
+            ]);
         
-        $author = Author::first();
-        $this->assertTrue($post->author->is($author));
+        $this->assertTrue($post->author->is($this->author));
         
     }
     
     /** @test */
     public function an_author_owns_one_or_more_posts(): void
     {
-        $author = factory(Author::class)->create();
+        $author = $this->author;
         $posts = $author->posts()->createMany(factory(Post::class, 2)->raw());
         
         $this->assertJsonSubset($author->posts, $posts->fresh());
@@ -213,5 +218,16 @@ class SavePostsTest extends TestCase
     protected function clearPosts(): void
     {
         $this->posts = [];
+    }
+    
+    public function setUp(): void
+    {
+        parent::setUp();
+        
+        // an author is required to exist in the database for every possible blog post test
+        // except failure test
+        
+        $this->author = factory('roniestein\Press\Author')->create(['slug' => 'juan-valdez']);
+        
     }
 }
