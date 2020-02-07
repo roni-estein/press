@@ -53,7 +53,7 @@ class PostRepository
         $fields = collect($post)
             ->put('slug', Str::slug($post['title']))
             ->diffKeys($extra)
-            ->except('identifier', 'tags');
+            ->except('identifier', 'tags', 'author');
         
         $emptyfieldList = collect(Schema::getColumnListing((new Post)->getTable()))
             ->reject(function ($name) {

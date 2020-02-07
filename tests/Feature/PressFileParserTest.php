@@ -3,10 +3,13 @@
 namespace roniestein\Press\Tests;
 
 use Carbon\Carbon;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use roniestein\Press\PressFileParser;
 
 class PressFileParserTest extends TestCase
 {
+    use RefreshDatabase;
+    
     /** @test */
     public function the_head_and_body_gets_split()
     {
@@ -65,20 +68,21 @@ class PressFileParserTest extends TestCase
     /** @test */
     public function an_extra_field_gets_saved()
     {
-        $pressFileParser = (new PressFileParser("---\nauthor: John Doe\n---\n"));
+        $pressFileParser = (new PressFileParser("---\nread-time: 5 min\n---\n"));
 
         $data = $pressFileParser->getData();
 
-        $this->assertEquals(json_encode(['author' => 'John Doe']), $data['extra']);
+        $this->assertEquals(json_encode(['read-time' => '5 min']), $data['extra']);
     }
 
     /** @test */
     public function two_additional_fields_are_put_into_extra()
     {
-        $pressFileParser = (new PressFileParser("---\nauthor: John Doe\nimage: some/image.jpg\n---\n"));
-
-        $data = $pressFileParser->getData();
-
-        $this->assertEquals(json_encode(['author' => 'John Doe', 'image' => 'some/image.jpg']), $data['extra']);
+        $pressFileParser = (new PressFileParser("---\nread-time: 5 min\nimage: some/image.jpg\n---\n"));
+    
+        $data = $pressFileParser->getData();    
+    
+        $this->assertEquals(json_encode(['read-time' => '5 min', 'image' => 'some/image.jpg']), $data['extra']);
+        
     }
 }

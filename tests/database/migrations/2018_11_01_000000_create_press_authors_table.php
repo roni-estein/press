@@ -4,23 +4,16 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePressPostsTable extends Migration
+class CreatePressAuthorsTable extends Migration
 {
     public function up()
     {
-        Schema::create('press_posts', function (Blueprint $table) {
+        Schema::create('press_authors', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('identifier')->index();
             $table->string('slug')->unique()->index();
-            $table->string('title');
+            $table->string('name');
             $table->string('description');
-            $table->text('body');
-            $table->text('extra')->nullable();
-            $table->morphs('author');
-            $table->timestamp('published_at')->nullable();
             $table->timestamps();
-            $table->index('created_at');
-            $table->index('updated_at');
         });
     }
 

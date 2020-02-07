@@ -5,6 +5,7 @@ namespace roniestein\Press\Tests;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
+use roniestein\Press\Author;
 use roniestein\Press\Post;
 use roniestein\Press\PressFileParser;
 use roniestein\Press\Repositories\PostRepository;
@@ -31,8 +32,10 @@ class SavePostsTest extends TestCase
                 "identifier" => "markfile1md",
                 "description" => "Description here",
                 "slug" => "my-title",
+                "author_type" => "roniestein\\Press\\Author",
+                "author_id" => "1",
                 "body" => "<h1>Heading</h1>\n<p>Blog post body here</p>",
-                "extra"=> "{\"chicken\":\"soup\"}",
+                "extra" => "{\"chicken\":\"soup\"}",
                 "published_at" => null,
             ]
         );
@@ -45,7 +48,7 @@ class SavePostsTest extends TestCase
         foreach ($posts as $post) {
             (new PostRepository)->save($post);
         }
-    
+        
         $this->assertCount(1, Post::all());
         $this->assertDatabaseHas('press_posts',
             [
@@ -53,13 +56,15 @@ class SavePostsTest extends TestCase
                 'title' => 'My Title',
                 "identifier" => "markfile1md",
                 "description" => "Description here",
+                "author_type" => "roniestein\\Press\\Author",
+                "author_id" => "1",
                 "slug" => "my-title",
                 "body" => "<h1>Heading</h1>\n<p>Blog post body here</p>",
-                "extra"=> "{\"chicken\":\"soup\"}",
+                "extra" => "{\"chicken\":\"soup\"}",
                 "published_at" => null,
             ]
         );
-    
+        
         $this->assertCount(4, Tag::all());
         $this->assertCount(4, Post::first()->tags);
         
@@ -68,14 +73,14 @@ class SavePostsTest extends TestCase
     /** @test */
     public function duplicate_tags_will_not_be_saved_twice(): void
     {
-        Tag::create(['text'=>'chicken', 'slug'=>'chicken']);
+        Tag::create(['text' => 'chicken', 'slug' => 'chicken']);
         $this->assertCount(1, Tag::all());
-    
+        
         $posts = $this->mockFetchPosts(__DIR__ . '/../scenerios/blog-with-tags');
         foreach ($posts as $post) {
             (new PostRepository)->save($post);
         }
-    
+        
         $this->assertCount(1, Post::all());
         $this->assertDatabaseHas('press_posts',
             [
@@ -83,13 +88,15 @@ class SavePostsTest extends TestCase
                 'title' => 'My Title',
                 "identifier" => "markfile1md",
                 "description" => "Description here",
+                "author_type" => "roniestein\\Press\\Author",
+                "author_id" => "1",
                 "slug" => "my-title",
                 "body" => "<h1>Heading</h1>\n<p>Blog post body here</p>",
-                "extra"=> "{\"chicken\":\"soup\"}",
+                "extra" => "{\"chicken\":\"soup\"}",
                 "published_at" => null,
             ]
         );
-    
+        
         $this->assertCount(4, Tag::all());
         $this->assertCount(4, Post::first()->tags);
         
@@ -104,7 +111,7 @@ class SavePostsTest extends TestCase
             
             (new PostRepository)->save($post);
         }
-    
+        
         $this->assertCount(4, Post::first()->tags);
         
         $posts = $this->mockFetchPosts(__DIR__ . '/../scenerios/revised-blog-with-tags');
@@ -114,7 +121,7 @@ class SavePostsTest extends TestCase
             (new PostRepository)->save($post);
         }
         $this->assertCount(1, Post::first()->tags);
-    
+        
         $posts = $this->mockFetchPosts(__DIR__ . '/../scenerios/blog-without-tags');
         
         $this->clearPosts();
@@ -154,6 +161,27 @@ class SavePostsTest extends TestCase
         $this->assertCount(2, Post::all());
         $this->assertCount(2, $tag->posts);
     }
+    
+    /** @test */
+    public function a_post_has_an_author(): void
+    {
+        $post = factory(Post::class)->create();
+        
+        $author = Author::first();
+        $this->assertTrue($post->author->is($author));
+        
+    }
+    
+    /** @test */
+    public function an_author_owns_one_or_more_posts(): void
+    {
+        $author = factory(Author::class)->create();
+        $posts = $author->posts()->createMany(factory(Post::class, 2)->raw());
+        
+        $this->assertJsonSubset($author->posts, $posts->fresh());
+        
+    }
+    
     
     /**
      * Test Driver, to get an array of posts located at a path

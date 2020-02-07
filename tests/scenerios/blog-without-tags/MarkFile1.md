@@ -1,6 +1,7 @@
 ---
 title: My Title
 description: Description here
+author: juan-valdez
 chicken: soup
 ---
 

@@ -2,6 +2,7 @@
 
 use Carbon\Carbon;
 use Illuminate\Support\Str;
+use roniestein\Press\Author;
 use roniestein\Press\Post;
 
 /** @var Illuminate\Database\Eloquent\Factory $factory */
@@ -13,6 +14,8 @@ $factory->define(Post::class, function (Faker\Generator $faker) {
         'title' => $faker->sentence,
         'description' => $faker->sentence,
         'body' => $faker->paragraph,
+        'author_id' => function($faker){ return factory(Author::class)->create()->id; },
+        'author_type' => function($faker){ return Author::class; },
         'published_at' => function() use ($faker) {
             return ($faker->boolean ? Carbon::today()->addDays($faker->numberBetween(-2,2)): null);
         },

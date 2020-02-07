@@ -15,6 +15,7 @@ class PressBaseServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        // Run migrations only for testing
         if ($this->app->runningInConsole()) {
             $this->registerPublishing();
         }
@@ -44,6 +45,7 @@ class PressBaseServiceProvider extends ServiceProvider
         
         if($this->app->runningUnitTests()){
             $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+            $this->loadMigrationsFrom(__DIR__.'/../tests/database/migrations');
         }
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'press');
 
@@ -60,16 +62,11 @@ class PressBaseServiceProvider extends ServiceProvider
     protected function registerPublishing()
     {
         $this->publishes([
-            __DIR__.'/../database/migrations/' => database_path('migrations')],
-            'press-migrations');
-        
-        $this->publishes([
+            __DIR__.'/../database/migrations/' => database_path('migrations'),
             __DIR__.'/../config/press.php' => config_path('press.php'),
-        ], 'press-config');
-
-        $this->publishes([
             __DIR__.'/Console/stubs/PressServiceProvider.stub' => app_path('Providers/PressServiceProvider.php'),
-        ], 'press-provider');
+            ],
+            'press');
     }
 
     /**
@@ -124,6 +121,7 @@ class PressBaseServiceProvider extends ServiceProvider
             Fields\Title::class,
             Fields\PublishedAt::class,
             Fields\Tags::class,
+            Fields\Author::class,
         ]);
     }
 }

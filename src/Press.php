@@ -20,7 +20,25 @@ class Press
     {
         return is_null(config('press'));
     }
-
+    
+    public function authorModel()
+    {
+        if(app()->runningUnitTests()){
+            return 'roniestein\Press\Author';
+        }
+        return config('press.author.model');
+        
+        
+    }
+    
+    public function authorKey()
+    {
+        if(app()->runningUnitTests()){
+            return 'author';
+        }
+        return config('press.author.key');
+    }
+    
     /**
      * Get an instance of the set driver.
      *

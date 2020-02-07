@@ -38,4 +38,13 @@ class Post extends Model
     {
         return optional(json_decode($this->extra))->$field;
     }
+    
+    
+    /**
+     * Get the owning author model.
+     */
+    public function author()
+    {
+        return $this->morphTo();
+    }
 }
