@@ -22,6 +22,11 @@ class PostRepository
     {
         
         $attributes = $this->getFormattedAttributesArray($post);
+        // Stop everything if there is no author
+        abort_if(is_null($attributes['author_id']),
+            422,
+            'No author present on the blog post: '.$attributes['title']);
+        
         $currentPost = Post::updateOrCreate([
             'identifier' => $post['identifier'],
         ], $attributes);

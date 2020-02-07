@@ -23,7 +23,7 @@ class Author extends FieldContract
             $id = Press::authorModel()::where('slug', $fieldValue)->firstOrFail()->id;
             
         } catch (ModelNotFoundException $e) {
-            abort(404,
+            abort(422,
                 "\n\n" . 'No Author found in the table "' .
                 Press::authorModel()::make()->getTable() .
                 '" with the slug: ' . $fieldValue . "\nCheck for spelling errors\n");

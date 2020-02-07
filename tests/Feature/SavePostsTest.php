@@ -10,6 +10,7 @@ use roniestein\Press\Post;
 use roniestein\Press\PressFileParser;
 use roniestein\Press\Repositories\PostRepository;
 use roniestein\Press\Tag;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class SavePostsTest extends TestCase
 {
@@ -185,6 +186,25 @@ class SavePostsTest extends TestCase
         
         $this->assertJsonSubset($author->posts, $posts->fresh());
         
+    }
+    
+    /** @test */
+    public function a_post_without_a_valid_author_stops_processing_and_throws_an_error(): void
+    {
+        try {
+            $posts = $this->mockFetchPosts(__DIR__ . '/../scenerios/blog-without-author');
+            foreach ($posts as $post) {
+                (new PostRepository)->save($post);
+            }
+            $this->fail('No Http exception was thrown when a blog was posted without an author field present');
+        }
+        catch (HttpException $e){
+            //An exception  was thrown
+            $this->assertEquals($e->getStatusCode(), 422);
+            $this->assertStringContainsString(
+                'No author present on the blog post:', $e->getMessage());
+            
+        }
     }
     
     
