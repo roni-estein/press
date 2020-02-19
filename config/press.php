@@ -43,4 +43,10 @@ return [
     */
 
     'path' => 'blogs',
+    
+    
+    'author' => [
+        'model' => 'App\User',
+        'key' => 'author',
+    ],
 ];
