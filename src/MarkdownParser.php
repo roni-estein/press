@@ -1,6 +1,6 @@
 <?php
 
-namespace roniestein\Press;
+namespace RoniEstein\Press;
 
 use Parsedown;
 

@@ -13,7 +13,7 @@ Add these lines to your `composer.json` file
     "repositories": [
         {
             "type": "git",
-            "url": "https://github.com/roniestein/press.git"
+            "url": "https://github.com/RoniEstein/press.git"
         }
     ]
 }

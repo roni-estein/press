@@ -1,13 +1,13 @@
 <?php
 
-namespace roniestein\Press\Repositories;
+namespace RoniEstein\Press\Repositories;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
-use roniestein\Press\Post;
-use roniestein\Press\Tag;
+use RoniEstein\Press\Post;
+use RoniEstein\Press\Tag;
 
 class PostRepository
 {

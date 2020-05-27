@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Str;
-use roniestein\Press\Author;
+use RoniEstein\Press\Author;
 
 /** @var Illuminate\Database\Eloquent\Factory $factory */
 

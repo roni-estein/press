@@ -2,8 +2,8 @@
 
 use Carbon\Carbon;
 use Illuminate\Support\Str;
-use roniestein\Press\Author;
-use roniestein\Press\Post;
+use RoniEstein\Press\Author;
+use RoniEstein\Press\Post;
 
 /** @var Illuminate\Database\Eloquent\Factory $factory */
 

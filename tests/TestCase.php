@@ -1,9 +1,9 @@
 <?php
 
-namespace roniestein\Press\Tests;
+namespace RoniEstein\Press\Tests;
 
-use roniestein\Press\PressBaseServiceProvider;
-use Illuminate\Foundation\Testing\Assert as PHPUnit;
+use RoniEstein\Press\PressBaseServiceProvider;
+use Illuminate\Testing\Assert as PHPUnit;
 
 class TestCase extends \Orchestra\Testbench\TestCase
 {
@@ -56,6 +56,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
         if (count($expected) === 0) {
             $this->fail('$actual dataset was empty');
         }
+        
         
         PHPUnit::assertArraySubset($expected, $actual, $strict,
             $this->assertJsonMessage($expected, $actual));

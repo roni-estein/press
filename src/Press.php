@@ -1,6 +1,6 @@
 <?php
 
-namespace roniestein\Press;
+namespace RoniEstein\Press;
 
 use Illuminate\Support\Str;
 
@@ -24,7 +24,7 @@ class Press
     public function authorModel()
     {
         if(app()->runningUnitTests()){
-            return 'roniestein\Press\Author';
+            return 'RoniEstein\Press\Author';
         }
         return config('press.author.model');
         
@@ -47,7 +47,7 @@ class Press
     public function driver()
     {
         $driver = Str::title(config('press.driver'));
-        $class = 'roniestein\Press\Drivers\\' . $driver . 'Driver';
+        $class = 'RoniEstein\Press\Drivers\\' . $driver . 'Driver';
 
         return new $class;
     }

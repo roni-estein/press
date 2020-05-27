@@ -1,10 +1,10 @@
 <?php
 
-namespace roniestein\Press\Tests;
+namespace RoniEstein\Press\Tests;
 
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use roniestein\Press\PressFileParser;
+use RoniEstein\Press\PressFileParser;
 
 class PressFileParserTest extends TestCase
 {
@@ -19,7 +19,7 @@ class PressFileParserTest extends TestCase
         // an author is required to exist in the database for every possible blog post test
         // except failure test
         
-        $this->author = factory('roniestein\Press\Author')->create(['slug' => 'juan-valdez']);
+        $this->author = factory('RoniEstein\Press\Author')->create(['slug' => 'juan-valdez']);
         
     }
     
@@ -33,6 +33,7 @@ class PressFileParserTest extends TestCase
         $this->assertStringContainsString('title: My Title', $data[1]);
         $this->assertStringContainsString('description: Description here', $data[1]);
         $this->assertStringContainsString('Blog post body here', $data[2]);
+        
     }
     
     /** @test */

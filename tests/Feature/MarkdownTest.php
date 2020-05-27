@@ -1,8 +1,8 @@
 <?php
 
-namespace roniestein\Press\Tests;
+namespace RoniEstein\Press\Tests;
 
-use roniestein\Press\MarkdownParser;
+use RoniEstein\Press\MarkdownParser;
 
 class MarkdownTest extends TestCase
 {

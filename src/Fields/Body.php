@@ -1,8 +1,8 @@
 <?php
 
-namespace roniestein\Press\Fields;
+namespace RoniEstein\Press\Fields;
 
-use roniestein\Press\MarkdownParser;
+use RoniEstein\Press\MarkdownParser;
 
 class Body extends FieldContract
 {

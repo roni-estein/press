@@ -1,11 +1,11 @@
 <?php
 
-namespace roniestein\Press;
+namespace RoniEstein\Press;
 
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use ReflectionClass;
-use roniestein\Press\Facades\Press;
+use RoniEstein\Press\Facades\Press;
 
 class PressFileParser
 {
@@ -104,7 +104,7 @@ class PressFileParser
         foreach ($this->data as $field => $value) {
             $class = $this->getField(Str::studly($field));
             if ( ! class_exists($class) && ! method_exists($class, 'process')) {
-                $class = 'roniestein\\Press\\Fields\\Extra';
+                $class = 'RoniEstein\\Press\\Fields\\Extra';
             }
             
             $this->data = array_merge(

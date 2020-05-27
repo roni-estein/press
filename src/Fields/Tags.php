@@ -1,6 +1,6 @@
 <?php
 
-namespace roniestein\Press\Fields;
+namespace RoniEstein\Press\Fields;
 
 use Carbon\Carbon;
 use Illuminate\Support\Arr;

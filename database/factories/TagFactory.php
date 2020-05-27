@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Str;
-use roniestein\Press\Tag;
+use RoniEstein\Press\Tag;
 
 /** @var Illuminate\Database\Eloquent\Factory $factory */
 

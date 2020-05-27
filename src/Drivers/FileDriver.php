@@ -1,9 +1,9 @@
 <?php
 
-namespace roniestein\Press\Drivers;
+namespace RoniEstein\Press\Drivers;
 
 use Illuminate\Support\Facades\File;
-use roniestein\Press\Exceptions\FileDriverDirectoryNotFoundException;
+use RoniEstein\Press\Exceptions\FileDriverDirectoryNotFoundException;
 
 class FileDriver extends Driver
 {
@@ -27,7 +27,7 @@ class FileDriver extends Driver
      * Instantiates the PressFileParser and build up an array of posts.
      *
      * @return bool|void
-     * @throws \roniestein\Press\Exceptions\FileDriverDirectoryNotFoundException
+     * @throws \RoniEstein\Press\Exceptions\FileDriverDirectoryNotFoundException
      *
      * @return void
      */

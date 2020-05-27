@@ -1,10 +1,10 @@
 <?php
 
-namespace roniestein\Press\Console;
+namespace RoniEstein\Press\Console;
 
 use Illuminate\Console\Command;
-use roniestein\Press\Facades\Press;
-use roniestein\Press\Repositories\PostRepository;
+use RoniEstein\Press\Facades\Press;
+use RoniEstein\Press\Repositories\PostRepository;
 
 class ProcessCommand extends Command
 {
@@ -26,7 +26,7 @@ class ProcessCommand extends Command
     /**
      * Execute the console command.
      *
-     * @param \roniestein\Press\Repositories\PostRepository $postRepository
+     * @param \RoniEstein\Press\Repositories\PostRepository $postRepository
      *
      * @return mixed
      */

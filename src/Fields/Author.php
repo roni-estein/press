@@ -1,9 +1,9 @@
 <?php
 
-namespace roniestein\Press\Fields;
+namespace RoniEstein\Press\Fields;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use roniestein\Press\Facades\Press;
+use RoniEstein\Press\Facades\Press;
 
 class Author extends FieldContract
 {

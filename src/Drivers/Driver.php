@@ -1,9 +1,9 @@
 <?php
 
-namespace roniestein\Press\Drivers;
+namespace RoniEstein\Press\Drivers;
 
 use Illuminate\Support\Str;
-use roniestein\Press\PressFileParser;
+use RoniEstein\Press\PressFileParser;
 
 abstract class Driver
 {

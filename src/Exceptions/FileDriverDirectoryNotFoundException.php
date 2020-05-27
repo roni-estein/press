@@ -1,6 +1,6 @@
 <?php
 
-namespace roniestein\Press\Exceptions;
+namespace RoniEstein\Press\Exceptions;
 
 use Exception;
 

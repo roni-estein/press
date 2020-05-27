@@ -1,14 +1,14 @@
 <?php
 
-namespace roniestein\Press\Tests;
+namespace RoniEstein\Press\Tests;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
-use roniestein\Press\Post;
-use roniestein\Press\PressFileParser;
-use roniestein\Press\Repositories\PostRepository;
-use roniestein\Press\Tag;
+use RoniEstein\Press\Post;
+use RoniEstein\Press\PressFileParser;
+use RoniEstein\Press\Repositories\PostRepository;
+use RoniEstein\Press\Tag;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class SavePostsTest extends TestCase
@@ -34,7 +34,7 @@ class SavePostsTest extends TestCase
                 "identifier" => "markfile1md",
                 "description" => "Description here",
                 "slug" => "my-title",
-                "author_type" => "roniestein\\Press\\Author",
+                "author_type" => "RoniEstein\\Press\\Author",
                 "author_id" => "1",
                 "body" => "<h1>Heading</h1>\n<p>Blog post body here</p>",
                 "extra" => "{\"chicken\":\"soup\"}",
@@ -58,7 +58,7 @@ class SavePostsTest extends TestCase
                 'title' => 'My Title',
                 "identifier" => "markfile1md",
                 "description" => "Description here",
-                "author_type" => "roniestein\\Press\\Author",
+                "author_type" => "RoniEstein\\Press\\Author",
                 "author_id" => "1",
                 "slug" => "my-title",
                 "body" => "<h1>Heading</h1>\n<p>Blog post body here</p>",
@@ -90,7 +90,7 @@ class SavePostsTest extends TestCase
                 'title' => 'My Title',
                 "identifier" => "markfile1md",
                 "description" => "Description here",
-                "author_type" => "roniestein\\Press\\Author",
+                "author_type" => "RoniEstein\\Press\\Author",
                 "author_id" => "1",
                 "slug" => "my-title",
                 "body" => "<h1>Heading</h1>\n<p>Blog post body here</p>",
@@ -118,7 +118,7 @@ class SavePostsTest extends TestCase
                 'title' => 'My Title',
                 "identifier" => "markfile1md",
                 "description" => "Description here",
-                "author_type" => "roniestein\\Press\\Author",
+                "author_type" => "RoniEstein\\Press\\Author",
                 "author_id" => "1",
                 "slug" => "my-title",
                 "body" => "<h1>Heading</h1>\n<p>Blog post body here</p>",
@@ -268,7 +268,7 @@ class SavePostsTest extends TestCase
         // an author is required to exist in the database for every possible blog post test
         // except failure test
         
-        $this->author = factory('roniestein\Press\Author')->create(['slug' => 'juan-valdez']);
+        $this->author = factory('RoniEstein\Press\Author')->create(['slug' => 'juan-valdez']);
         
     }
 }
