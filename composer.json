@@ -18,24 +18,24 @@
         "ext-json": "*"
     },
     "require-dev": {
-        "orchestra/testbench": "^4.0",
+        "orchestra/testbench": "^5.0",
         "mockery/mockery": "^1.2",
-        "phpunit/phpunit": "8.*"
+        "nunomaduro/collision": "^4"
     },
     "autoload": {
         "psr-4": {
-            "roniestein\\Press\\": "src/"
+            "RoniEstein\\Press\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "roniestein\\Press\\Tests\\": "tests/"
+            "RoniEstein\\Press\\Tests\\": "tests/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "roniestein\\Press\\PressBaseServiceProvider"
+                "RoniEstein\\Press\\PressBaseServiceProvider"
             ]
         }
     }
