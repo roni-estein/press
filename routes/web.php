@@ -1,5 +1,5 @@
 <?php
 
-Route::view('blog', 'press::test');
+//Route::view('blog', 'press::test');
 
-Route::get('controller', 'TestController@index');
+//Route::get('controller', 'TestController@index');
