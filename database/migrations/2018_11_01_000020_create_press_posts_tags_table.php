@@ -10,9 +10,7 @@ class CreatePressPostsTagsTable extends Migration
     {
         Schema::create('press_post_tags', function (Blueprint $table) {
             $table->unsignedBigInteger('post_id');
-            $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
             $table->unsignedBigInteger('tag_id');
-            $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
             $table->timestamps();
 
             $table->index(['post_id','tag_id'])->unique();
