@@ -3,7 +3,9 @@
 namespace RoniEstein\Press\Fields;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Str;
 use RoniEstein\Press\Facades\Press;
+use function Tests\authorFromException;
 
 class Author extends FieldContract
 {
@@ -19,20 +21,26 @@ class Author extends FieldContract
     public static function process($fieldType, $fieldValue, $data)
     {
         
+        $slugs = Str::of($fieldValue)->explode(', ');
+        
+        
         try {
-            $id = Press::authorModel()::where('slug', $fieldValue)->firstOrFail()->id;
+            $authors = $slugs->map(function ($slug) {
+                return [
+                    'postable_id' => Press::authorModel()::where('slug', $slug)->firstOrFail()->id,
+                    'postable_type' => Press::authorModel(),
+                ];
+            });
+            
+            return ['authors' => $authors];
             
         } catch (ModelNotFoundException $e) {
+            
             abort(422,
                 "\n\n" . 'No Author found in the table "' .
                 Press::authorModel()::make()->getTable() .
-                '" with the slug: ' . $fieldValue . "\nCheck for spelling errors\n");
+                '" with the slug: ' . authorFromException($e) . "\nCheck for spelling errors\n");
         }
-        
-        return [
-            Press::authorKey() . '_id' => $id,
-            Press::authorKey() . '_type' => Press::authorModel(),
-        ];
         
         
     }

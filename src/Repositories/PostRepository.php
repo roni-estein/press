@@ -20,17 +20,26 @@ class PostRepository
      */
     public function save($post)
     {
-        
         $attributes = $this->getFormattedAttributesArray($post);
-        // Stop everything if there is no author
-        abort_if(is_null($attributes['author_id']),
-            422,
-            'No author present on the blog post: '.$attributes['title']);
+        
+        abort_unless(is_array($attributes['authors']),
+            422, 'No author present on the blog post: '
+            . $attributes['title']);
+        
+        $authors = Arr::pull($attributes, 'authors');
         
         $currentPost = Post::updateOrCreate([
             'identifier' => $post['identifier'],
         ], $attributes);
         
+        
+        //Possible that authors are not all of the same class
+        $authors = collect($authors)->map(function ($item) use ($currentPost) {
+            $item['post_id'] = $currentPost->id;
+            return $item;
+        });
+        
+        $currentPost->authors()->sync($authors);
         
         $this->saveOrUpdateTagsOn($currentPost, $post['tags'] ?? '');
         
@@ -71,13 +80,14 @@ class PostRepository
         return $fields->union($emptyfieldList)->toArray();
     }
     
+    
     private function saveOrUpdateTagsOn($post, string $tagString = '')
     {
-
+        
         $tags = Collection::make(explode(',', $tagString));
-
+        
         if ($tags->isNotEmpty()) {
-
+            
             $tags = $tags
                 ->reject(function ($tag) {
                     return empty(trim($tag));
@@ -91,11 +101,9 @@ class PostRepository
                 });
             
             $post->tags()->sync($tags);
-        }else{
+        } else {
             
             $post->tags()->detach();
         }
-        
-        
     }
 }

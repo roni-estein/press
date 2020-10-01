@@ -21,6 +21,6 @@ class Author extends Model
      */
     public function posts()
     {
-        return $this->morphMany(Post::class, 'author');
+        return $this->morphToMany(Post::class, 'postable');
     }
 }

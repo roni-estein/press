@@ -16,7 +16,6 @@ class CreatePressPostsTable extends Migration
             $table->string('description');
             $table->text('body');
             $table->text('extra')->nullable();
-            $table->morphs('author');
             $table->timestamp('published_at')->nullable();
             $table->timestamps();
             $table->index('created_at');

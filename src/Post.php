@@ -17,8 +17,6 @@ class Post extends Model
     protected $guarded = [];
     
     
-    
-    
     /**
      * Get the tags associated with the Post.
      */
@@ -26,7 +24,8 @@ class Post extends Model
     {
         return $this->belongsToMany(Tag::class, 'press_post_tags', 'tag_id', 'post_id');
     }
-
+    
+    
     /**
      * Easy accessor for any of the fields in the extra column.
      *
@@ -41,10 +40,10 @@ class Post extends Model
     
     
     /**
-     * Get the owning author model.
+     * Get the owning authors model.
      */
-    public function author()
+    public function authors()
     {
-        return $this->morphTo();
+        return $this->morphedByMany(Author::class, 'postable');
     }
 }
