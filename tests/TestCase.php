@@ -2,24 +2,67 @@
 
 namespace RoniEstein\Press\Tests;
 
-use RoniEstein\Press\PressBaseServiceProvider;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 use Illuminate\Testing\Assert as PHPUnit;
+use RoniEstein\Press\PressBaseServiceProvider;
+use RoniEstein\Press\PressFileParser;
 
 class TestCase extends \Orchestra\Testbench\TestCase
 {
+    
+    public static array $posts = [];
+    
     protected function setUp(): void
     {
         parent::setUp();
-
-        $this->withFactories(__DIR__.'/../database/factories');
-        $this->withFactories(__DIR__.'/../tests/database/factories');
         
+        $this->withFactories(__DIR__ . '/../database/factories');
+        $this->withFactories(__DIR__ . '/../tests/database/factories');
+        
+        static::clearPosts();
     }
-
+    
+    /**
+     * Test Driver, to get an array of posts located at a path
+     * @param $path
+     *
+     * @return mixed
+     */
+    public static function mockFetchPosts($path)
+    {
+        $files = File::files($path);
+        
+        foreach ($files as $file) {
+            static::mockParse($file->getPathname(), $file->getFilename());
+        }
+        
+        return self::$posts;
+    }
+    
+    /**
+     * @param $content
+     * @param $identifier
+     *
+     */
+    public static function mockParse($content, $identifier)
+    {
+        self::$posts[] = array_merge(
+            (new PressFileParser($content))->getData(),
+            ['identifier' => Str::slug($identifier)]
+        );
+    }
+    
+    public static function clearPosts(): void
+    {
+        self::$posts = [];
+    }
+    
+    
     /**
      * Get package providers.
      *
-     * @param  \Illuminate\Foundation\Application  $app
+     * @param \Illuminate\Foundation\Application $app
      *
      * @return array
      */
@@ -29,13 +72,13 @@ class TestCase extends \Orchestra\Testbench\TestCase
             PressBaseServiceProvider::class,
         ];
     }
-
+    
     protected function getEnvironmentSetUp($app)
     {
         $app['config']->set('database.default', 'testdb');
         $app['config']->set('database.connections.testdb', [
             'driver' => 'sqlite',
-            'database' => ':memory:'
+            'database' => ':memory:',
         ]);
     }
     
