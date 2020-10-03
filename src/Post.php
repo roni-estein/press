@@ -2,8 +2,9 @@
 
 namespace RoniEstein\Press;
 
-use Illuminate\Database\Eloquent\Model;
 use RoniEstein\Press\Facades\Press;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class Post extends Model
 {
@@ -50,4 +51,42 @@ class Post extends Model
     {
         return $this->morphedByMany(Press::authorModel(), 'postable');
     }
+    
+    
+    /**
+     * Scope a query to only include Published posts.
+     *
+     * @param Builder $query
+     *
+     * @return Builder
+     */
+    public function scopePublished($query)
+    {
+        return $query->whereNotNull('published_at');
+    }
+    
+    /**
+     * Scope a query to only include Published posts.
+     *
+     * @param Builder $query
+     *
+     * @return Builder
+     */
+    public function scopeUnpublished($query)
+    {
+        return $query->whereNull('published_at');
+    }
+    
+    /**
+     * Scope a query to order posts by published at where they are published.
+     *
+     * @param Builder $query
+     *
+     * @return Builder
+     */
+    public function scopeRecent($query)
+    {
+        return $query->published()->OrderBy('published_at', 'desc');
+    }
+    
 }
