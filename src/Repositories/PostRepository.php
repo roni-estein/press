@@ -20,6 +20,7 @@ class PostRepository
      */
     public function save($post)
     {
+        
         $attributes = $this->getFormattedAttributesArray($post);
         
         abort_unless(is_array($attributes['authors']),
@@ -38,6 +39,8 @@ class PostRepository
             $item['post_id'] = $currentPost->id;
             return $item;
         });
+    
+        $currentPost->authors()->detach();
         
         $currentPost->authors()->sync($authors);
         
@@ -62,13 +65,13 @@ class PostRepository
     
     private function getFormattedAttributesArray($post)
     {
-        $extra = collect(
-            (array)json_decode($post['extra'] ?? '{}'));
+        
+        $extra = collect((array)json_decode($post['extra'] ?? '{}', true));
         $fields = collect($post)
             ->put('slug', Str::slug($post['title']))
             ->diffKeys($extra)
             ->except('identifier', 'tags', 'author');
-        
+
         $emptyfieldList = collect(Schema::getColumnListing((new Post)->getTable()))
             ->reject(function ($name) {
                 return in_array($name, ['id', 'identifier', 'created_at', 'updated_at']);
@@ -99,10 +102,11 @@ class PostRepository
                         'text' => trim(Str::lower($tag)),
                     ]);
                 });
-            
+    
             $post->tags()->sync($tags);
-        } else {
             
+            Tag::prune();
+        } else {
             $post->tags()->detach();
         }
     }

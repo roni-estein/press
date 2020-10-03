@@ -36,10 +36,11 @@ class PressFileParser
         $this->filename = $filename;
         
         $this->splitFile();
-
+    
         $this->explodeData();
-
+    
         $this->processFields();
+    
     }
 
     /**
@@ -82,10 +83,11 @@ class PressFileParser
      */
     protected function explodeData()
     {
-        foreach (explode("\n", trim($this->rawData[1])) as $fieldString) {
-            preg_match('/(.*):\s?(.*)/', $fieldString, $fieldArray);
 
-            $this->data[$fieldArray[1]] = $fieldArray[2];
+        foreach (explode("\n", trim($this->rawData[1])) as $fieldString) {
+            $fieldArray = explode(':',$fieldString,2);
+    
+            $this->data[trim($fieldArray[0])] = trim($fieldArray[1]);
         }
 
         $this->data['body'] = trim($this->rawData[2]);

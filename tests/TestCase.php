@@ -2,6 +2,7 @@
 
 namespace RoniEstein\Press\Tests;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Illuminate\Testing\Assert as PHPUnit;
@@ -21,6 +22,31 @@ class TestCase extends \Orchestra\Testbench\TestCase
         $this->withFactories(__DIR__ . '/../tests/database/factories');
         
         static::clearPosts();
+    }
+    
+    /**
+     * Get the current posts that have been processed
+     *
+     * @return array
+     */
+    public static function posts()
+    {
+        return self::$posts;
+    }
+    /**
+     * Test Driver, to get an array of posts located at a path
+     * @param $path
+     *
+     * @return array
+     */
+    public static function mockFetchLatestPost($path): array
+    {
+        $files = File::files($path);
+        foreach ($files as $file) {
+            static::mockParse($file->getPathname(), $file->getFilename());
+        }
+        
+        return Arr::last(self::$posts);
     }
     
     /**
@@ -47,7 +73,8 @@ class TestCase extends \Orchestra\Testbench\TestCase
      */
     public static function mockParse($content, $identifier)
     {
-        self::$posts[] = array_merge(
+        
+        self::$posts[Str::slug($identifier)] = array_merge(
             (new PressFileParser($content))->getData(),
             ['identifier' => Str::slug($identifier)]
         );

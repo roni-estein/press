@@ -3,6 +3,7 @@
 namespace RoniEstein\Press;
 
 use Illuminate\Database\Eloquent\Model;
+use RoniEstein\Press\Facades\Press;
 
 class Post extends Model
 {
@@ -16,13 +17,16 @@ class Post extends Model
      */
     protected $guarded = [];
     
+    protected $casts = [
+        'published_at' => 'datetime',
+    ];
     
     /**
      * Get the tags associated with the Post.
      */
     public function tags()
     {
-        return $this->belongsToMany(Tag::class, 'press_post_tags', 'tag_id', 'post_id');
+        return $this->belongsToMany(Tag::class, 'press_post_tags');
     }
     
     
@@ -44,6 +48,6 @@ class Post extends Model
      */
     public function authors()
     {
-        return $this->morphedByMany(Author::class, 'postable');
+        return $this->morphedByMany(Press::authorModel(), 'postable');
     }
 }

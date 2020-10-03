@@ -88,32 +88,67 @@ test('duplicate tags will not be saved twice', function() {
 });
 
 
-test('tags will be removed from post if removed from markup', function() {
-    $posts = TestCase::mockFetchPosts(__DIR__ . '/../scenerios/blog-with-tags');
-    
-    foreach ($posts as $post) {
-        
-        (new PostRepository)->save($post);
-    }
-    
+test('updated markup will update the the stored html', function() {
+   
+    (new PostRepository)->save(
+        TestCase::mockFetchLatestPost(__DIR__ . '/../scenerios/blog-with-tags')
+    );
+//    dd(Post::first()->tags);
     expect(Post::first()->tags)->toHaveCount(4);
     
-    $posts = TestCase::mockFetchPosts(__DIR__ . '/../scenerios/revised-blog-with-tags');
     
-    TestCase::clearPosts();
-    foreach ($posts as $post) {
-        (new PostRepository)->save($post);
-    }
+    (new PostRepository)->save(
+        TestCase::mockFetchLatestPost(__DIR__ . '/../scenerios/revised-same-blog-with-different-tags')
+    );
+    
     expect(Post::first()->tags)->toHaveCount(1);
     
-    $posts = TestCase::mockFetchPosts(__DIR__ . '/../scenerios/blog-without-tags');
     
-    TestCase::clearPosts();
-    foreach ($posts as $post) {
-        (new PostRepository)->save($post);
-    }
-    expect(Post::first()->tags)->toHaveCount(0);
+    
+//    $posts = TestCase::mockFetchPosts(__DIR__ . '/../scenerios/revised-blog-with-tags');
+//
+//    TestCase::clearPosts();
+//    foreach ($posts as $post) {
+//        (new PostRepository)->save($post);
+//    }
+//    expect(Post::first()->tags)->toHaveCount(1);
+//
+//    $posts = TestCase::mockFetchPosts(__DIR__ . '/../scenerios/blog-without-tags');
+//
+//    TestCase::clearPosts();
+//    foreach ($posts as $post) {
+//        (new PostRepository)->save($post);
+//    }
+//    expect(Post::first()->tags)->toHaveCount(0);
 });
+
+
+//test('tags will be removed from post if removed from markup', function() {
+//    $posts = TestCase::mockFetchPosts(__DIR__ . '/../scenerios/blog-with-tags');
+//
+//    foreach ($posts as $post) {
+//
+//        (new PostRepository)->save($post);
+//    }
+//
+//    expect(Post::first()->tags)->toHaveCount(4);
+//
+//    $posts = TestCase::mockFetchPosts(__DIR__ . '/../scenerios/revised-blog-with-tags');
+//
+//    TestCase::clearPosts();
+//    foreach ($posts as $post) {
+//        (new PostRepository)->save($post);
+//    }
+//    expect(Post::first()->tags)->toHaveCount(1);
+//
+//    $posts = TestCase::mockFetchPosts(__DIR__ . '/../scenerios/blog-without-tags');
+//
+//    TestCase::clearPosts();
+//    foreach ($posts as $post) {
+//        (new PostRepository)->save($post);
+//    }
+//    expect(Post::first()->tags)->toHaveCount(0);
+//});
 
 
 test('a post with a header image can be processed', function() {
@@ -179,4 +214,17 @@ it('saves a post with two authors', function () {
     );
     expect(Post::first()->authors)->toHaveCount(2);
     
+});
+
+test('a header image is properly parsed', function() {
+    
+    (new PostRepository)->save(
+//        TestCase::mockFetchLatestPost(__DIR__ . '/../scenerios/blog-with-header-image')
+        TestCase::mockFetchLatestPost(__DIR__ . '/../scenerios/blog-with-url-header-image')
+    );
+    
+    $post = Post::first();
+//    dd($post);
+    
+    expect(false)->toBe(true);
 });
