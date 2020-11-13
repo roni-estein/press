@@ -40,6 +40,16 @@ class Press
     }
     
     /**
+     * Get the current project timezone.
+     *
+     * @return string
+     */
+    public function timezone()
+    {
+        return config('press.timezone');
+    }
+    
+    /**
      * Get an instance of the set driver.
      *
      * @return mixed

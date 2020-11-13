@@ -62,7 +62,9 @@ class Post extends Model
      */
     public function scopePublished($query)
     {
-        return $query->whereNotNull('published_at');
+        return $query
+            ->whereNotNull('published_at')
+            ->whereDate('published_at','<=', now(Press::timezone()));
     }
     
     /**

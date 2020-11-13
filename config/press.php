@@ -15,6 +15,19 @@ return [
     */
 
     'driver' => 'file',
+    
+    /*
+    |--------------------------------------------------------------------------
+    | Timezone
+    |--------------------------------------------------------------------------
+    |
+    | Here you can specify the base timezone that your blog uses for reference
+    | time, it will allow you to evaluate when a file is published and visible
+    | to the public.
+    |
+    */
+    
+    'timezone' => 'America/Winnipeg',
 
     /*
     |--------------------------------------------------------------------------
