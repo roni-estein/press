@@ -88,7 +88,7 @@ class Post extends Model
      */
     public function scopeRecent($query)
     {
-        return $query->published()->OrderBy('published_at', 'desc');
+        return $query->whereNotNull('published_at')->OrderBy('published_at', 'desc');
     }
     
 }
