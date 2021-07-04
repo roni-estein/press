@@ -73,7 +73,6 @@ class TestCase extends \Orchestra\Testbench\TestCase
      */
     public static function mockParse($content, $identifier)
     {
-        
         self::$posts[Str::slug($identifier)] = array_merge(
             (new PressFileParser($content))->getData(),
             ['identifier' => Str::slug($identifier)]
@@ -102,6 +101,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
     
     protected function getEnvironmentSetUp($app)
     {
+        
         $app['config']->set('database.default', 'testdb');
         $app['config']->set('database.connections.testdb', [
             'driver' => 'sqlite',

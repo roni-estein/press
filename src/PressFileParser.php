@@ -105,7 +105,8 @@ class PressFileParser
     {
         foreach ($this->data as $field => $value) {
             $class = $this->getField(Str::studly($field));
-            if ( ! class_exists($class) && ! method_exists($class, 'process')) {
+            
+            if (is_null($class)  || (! class_exists($class) && ! method_exists($class, 'process'))) {
                 $class = 'RoniEstein\\Press\\Fields\\Extra';
             }
             
