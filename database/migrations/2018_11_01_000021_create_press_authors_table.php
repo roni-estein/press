@@ -4,15 +4,15 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePostablesTable extends Migration
+class CreatePressAuthorsTable extends Migration
 {
     public function up()
     {
-        Schema::create('postables', function (Blueprint $table) {
-            $table->primary(['post_id','postable_id', 'postable_type']);
+        Schema::create('press_authors', function (Blueprint $table) {
+            $table->primary(['post_id','press_author_id', 'press_author_type']);
             $table->unsignedBigInteger('post_id');
-            $table->unsignedBigInteger('postable_id');
-            $table->string('postable_type');
+            $table->unsignedBigInteger('press_author_id');
+            $table->string('press_author_type');
             
         });
     }
@@ -24,6 +24,6 @@ class CreatePostablesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('postables');
+        Schema::dropIfExists('press_authors');
     }
 }

@@ -27,8 +27,8 @@ class Author extends FieldContract
         try {
             $authors = $slugs->map(function ($slug) {
                 return [
-                    'postable_id' => Press::authorModel()::where('slug', $slug)->firstOrFail()->id,
-                    'postable_type' => Press::authorModel(),
+                    'press_author_id' => Press::authorModel()::where('slug', $slug)->firstOrFail()->id,
+                    'press_author_type' => Press::authorModel(),
                 ];
             });
             

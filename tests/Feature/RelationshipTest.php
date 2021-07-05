@@ -35,8 +35,8 @@ test('a post has an author', function () {
     $author = factory(Author::class)->create();
     $post   = factory(Post::class)->create();
     $post->authors()->sync([
-        'postable_id'   => $author->id,
-        'postable_type' => get_class($author),
+        'press_author_id'   => $author->id,
+        'press_author_type' => get_class($author),
     
     ]);
     

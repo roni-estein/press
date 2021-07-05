@@ -8,7 +8,7 @@ class Author extends Model
 {
     
     
-    protected $table = 'press_authors';
+    protected $table = 'press_test_authors';
     
     
     /**
@@ -21,6 +21,6 @@ class Author extends Model
      */
     public function posts()
     {
-        return $this->morphToMany(Post::class, 'postable');
+        return $this->morphToMany(Post::class, 'press_author');
     }
 }

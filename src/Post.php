@@ -49,7 +49,7 @@ class Post extends Model
      */
     public function authors()
     {
-        return $this->morphedByMany(Press::authorModel(), 'postable');
+        return $this->morphedByMany(Press::authorModel(), 'press_author');
     }
     
     

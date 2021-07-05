@@ -51,15 +51,31 @@ return [
     |
     | Use this path value to determine on what URI we are going to serve the
     | blog. For example, if you wanted to serve it at a different prefix
-    | like www.example.com/my-blog, change the value to '/my-blog'.
+    | instead of www.example.com/articles, like www.example.com/my-blog,
+    | simply change the value url uri to '/my-blog'.
     |
     */
 
     'uri' => 'articles',
-    
-    
+
+    /*
+    |--------------------------------------------------------------------------
+    | Author Model
+    |--------------------------------------------------------------------------
+    |
+    | This is the model that becomes the related author of each article.
+    | the default is the default User model shipped with laravel but you
+    | can map the relationship to any model that has
+    | - a name
+    | - a unique slug field
+    | - and a primary key
+    | - in most cases you may want to shift this to some model likely Author as
+    |   you may want al users to be able to post articles
+    */
     'author' => [
         'model' => 'App\Models\User',
-        'key' => 'testable',
+        'id_field' => 'id',
+        'name_field' => 'name',
+        'slug_field' => 'slug',
     ],
 ];

@@ -4,11 +4,11 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePressAuthorsTable extends Migration
+class CreatePressTestAuthorsTable extends Migration
 {
     public function up()
     {
-        Schema::create('press_authors', function (Blueprint $table) {
+        Schema::create('press_test_authors', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('slug')->unique()->index();
             $table->string('name');
@@ -24,6 +24,6 @@ class CreatePressAuthorsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('press_posts');
+        Schema::dropIfExists('press_test_authors');
     }
 }
