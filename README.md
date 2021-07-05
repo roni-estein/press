@@ -58,9 +58,23 @@ description: This is my very first blog post with Press
 You are now a blogger!
 ```
 
-# Course
-This repo holds is the source code for the Laravel Package Development course found here - https://coderstape.com/series/1-laravel-package-development
+### Course
+This repo holds is the source code for the Laravel Package Development course found here - https://coderstape.com/series/1-laravel-package-development. Be warned, this source code and course is for educational purposes only and may not be production ready. Use at your own risk.
 
-# In Progress
+## BASIC LAYOUTS & LIVEWIRE COMPONENTS
 
-Be warned, this source code and course is for educational purposes only and may not be production ready. Use at your own risk.
+### Livewire Blog Index Component
+
+
+### Livewire Blog Index View
+
+
+### Livewire Blog Post Component
+
+
+
+### Livewire Blog Post View
+
+
+
+
