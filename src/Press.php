@@ -67,9 +67,9 @@ class Press
      *
      * @return string
      */
-    public function path()
+    public function uri()
     {
-        return config('press.path', 'blogs');
+        return config('press.uri', 'articles');
     }
 
     /**

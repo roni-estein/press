@@ -41,7 +41,7 @@ return [
     */
 
     'file' => [
-        'path' => 'blogs',
+        'path' => 'articles',
     ],
 
     /*
@@ -55,11 +55,11 @@ return [
     |
     */
 
-    'path' => 'blogs',
+    'uri' => 'articles',
     
     
     'author' => [
-        'model' => 'App\User',
-        'key' => 'author',
+        'model' => 'App\Models\User',
+        'key' => 'testable',
     ],
 ];

@@ -89,7 +89,7 @@ class PressBaseServiceProvider extends ServiceProvider
     private function routeConfiguration()
     {
         return [
-            'prefix' => Press::path(),
+            'prefix' => Press::uri(),
             'namespace' => 'RoniEstein\Press\Http\Controllers',
         ];
     }
