@@ -23,12 +23,6 @@ And then in the terminal, run the following command.
 
 `composer update`
 
-### Migrate Database
-
-Now that we have our package installed, we need to migrate the database to add the necessary tables for Press. In the command line, run the following command.
-
-`php artisan migrate`
-
 ### Publish the package config
 
 Up next, you need to publish the package's config file that includes some defaults for us. To publish that, run the following command.
@@ -37,15 +31,22 @@ Up next, you need to publish the package's config file that includes some defaul
 
 You will now find the config file located in `/config/press.php`
 
+### Migrate Database
+
+Now that our configs have been published review the new migrations and see if you need to make any changes to adapt the new migrations to your domain logic. If you don't need to or once you are done, you need to migrate the database to add the necessary tables for Press. In the command line, run the following command.
+
+`php artisan migrate`
+
 ### Create directory to hold posts
 
 The last step in the installation, is to create a directory for your markdown files that Press will use to turn into your blog posts. By default, it is just a directory in the root directory of your project called `blogs`. You may change that in the config file we published in the previous step.
 
-`mkdir blogs`
+`mkdir aticles` 
+
 
 ### Sample Post
 
-To create your first post, here's a sample markdown file to get you started. Copy and paste it into a `.md` file in your blogs directory.
+To create your first post, here's a sample markdown file to get you started. Copy and paste it into a `.md` file in your articles directory.
 
 ```
 ---
