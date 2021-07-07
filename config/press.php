@@ -74,8 +74,6 @@ return [
     */
     'author' => [
         'model' => 'App\Models\User',
-        'id_field' => 'id',     //not implemented yet
-        'name_field' => 'name', //not implemented yet
         'slug_field' => 'slug', //not implemented yet
     ],
 ];

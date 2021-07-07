@@ -27,7 +27,7 @@ class Author extends FieldContract
         try {
             $authors = $slugs->map(function ($slug) {
                 return [
-                    'press_author_id' => Press::authorModel()::where('slug', $slug)->firstOrFail()->id,
+                    'press_author_id' => Press::authorModel()::where(Press::slugField(), $slug)->firstOrFail()->id,
                     'press_author_type' => Press::authorModel(),
                 ];
             });
@@ -39,7 +39,7 @@ class Author extends FieldContract
             abort(422,
                 "\n\n" . 'No Author found in the table "' .
                 Press::authorModel()::make()->getTable() .
-                '" with the slug: ' . authorFromException($e) . "\nCheck for spelling errors\n");
+                '" with the '.Press::slugField().': ' . authorFromException($e) . "\nCheck for spelling errors\n");
         }
         
         

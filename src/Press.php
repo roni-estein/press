@@ -31,28 +31,12 @@ class Press
         
     }
     
-    public function authorKey()
-    {
-        if(app()->runningUnitTests()){
-            return 'id';
-        }
-        return config('press.author.id_field');
-    }
-    
     public function authorSlug()
     {
         if(app()->runningUnitTests()){
             return 'slug';
         }
         return config('press.author.slug_field');
-    }
-    
-    public function authorNameaut()
-    {
-        if(app()->runningUnitTests()){
-            return 'id';
-        }
-        return config('press.author.name');
     }
     
     /**
