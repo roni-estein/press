@@ -33,7 +33,7 @@ Now that we have our package installed, we need to migrate the database to add t
 
 Up next, you need to publish the package's config file that includes some defaults for us. To publish that, run the following command.
 
-`php artisan vendor:publish --tag=press-config`
+`php artisan vendor:publish --tag=press`
 
 You will now find the config file located in `/config/press.php`
 
