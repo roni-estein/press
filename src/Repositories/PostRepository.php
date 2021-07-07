@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
+use RoniEstein\Press\Facades\Press;
 use RoniEstein\Press\Post;
 use RoniEstein\Press\Tag;
 
@@ -23,9 +24,9 @@ class PostRepository
         
         $attributes = $this->getFormattedAttributesArray($post);
         
-        abort_unless(is_array($attributes['authors']),
-            422, 'No author present on the blog post: '
-            . $attributes['title']);
+        abort_unless(is_array($attributes['authors'] ?? null),
+            422, 'You must have a header with the key author: example-author' . PHP_EOL . 'If there is more than one author for the article, you may separate them with a comma' . PHP_EOL . 'author: example-one, example-2, example-3 etc...' . PHP_EOL
+            . 'in the article '. $attributes['title'].PHP_EOL. 'Each author slug must correspond to a value in the field ' . Press::authorSlug() . ' for the model '. Press::authorModel());
         
         $authors = Arr::pull($attributes, 'authors');
         
@@ -39,7 +40,7 @@ class PostRepository
             $item['post_id'] = $currentPost->id;
             return $item;
         });
-    
+        
         $currentPost->authors()->detach();
         
         $currentPost->authors()->sync($authors);
@@ -57,8 +58,8 @@ class PostRepository
      */
     private function extra($post)
     {
-        $extra = (array)json_decode($post['extra'] ?? '[]');
-        $attributes = Arr::except($post, ['title', 'body', 'identifier', 'published_at', 'extra', 'tags']);
+        $extra      = (array) json_decode($post['extra'] ?? '[]');
+        $attributes = Arr::except($post, [ 'title', 'body', 'identifier', 'published_at', 'extra', 'tags' ]);
         
         return json_encode(array_merge($extra, $attributes));
     }
@@ -66,15 +67,15 @@ class PostRepository
     private function getFormattedAttributesArray($post)
     {
         
-        $extra = collect((array)json_decode($post['extra'] ?? '{}', true));
+        $extra  = collect((array) json_decode($post['extra'] ?? '{}', true));
         $fields = collect($post)
             ->put('slug', Str::slug($post['title']))
             ->diffKeys($extra)
             ->except('identifier', 'tags', 'author');
-
-        $emptyfieldList = collect(Schema::getColumnListing((new Post)->getTable()))
+        
+        $emptyfieldList = collect(Schema::getColumnListing(( new Post )->getTable()))
             ->reject(function ($name) {
-                return in_array($name, ['id', 'identifier', 'created_at', 'updated_at']);
+                return in_array($name, [ 'id', 'identifier', 'created_at', 'updated_at' ]);
             })->flatten()->flip()->map(function ($item) {
                 return null;
             });
@@ -89,7 +90,7 @@ class PostRepository
         
         $tags = Collection::make(explode(',', $tagString));
         
-        if ($tags->isNotEmpty()) {
+        if ( $tags->isNotEmpty() ) {
             
             $tags = $tags
                 ->reject(function ($tag) {
@@ -102,7 +103,7 @@ class PostRepository
                         'text' => trim(Str::lower($tag)),
                     ]);
                 });
-    
+            
             $post->tags()->sync($tags);
             
             Tag::prune();

@@ -52,11 +52,14 @@ To create your first post, here's a sample markdown file to get you started. Cop
 ---
 title: My First Blog Post
 description: This is my very first blog post with Press
+author: roni-estein
 ---
 
 # Extra Extra Extra!
 
 You are now a blogger!
+
+***make sure to change the author: (slug) to a user or valid model that contains a mathing slug in your bound table. That table will need a valid slug field, and either a name field or an accessor that can retrieve the field "name"*** 
 ```
 
 ### Course
