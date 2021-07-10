@@ -64,7 +64,7 @@ class Post extends Model
     {
         return $query
             ->whereNotNull('published_at')
-            ->whereDate('published_at','<=', now(Press::timezone()));
+            ->whereDate('published_at', '<=', now(Press::timezone()));
     }
     
     /**
@@ -78,6 +78,21 @@ class Post extends Model
     {
         return $query->whereNull('published_at');
     }
+    
+    /**
+     * Scope a query to only include Published posts.
+     *
+     * @param Builder $query
+     *
+     * @return Builder
+     */
+    public function scopeWithUnpublishedBy($query, $slug)
+    {
+        return $query->orWhereHas('authors', function ($query) use ($slug) {
+                return $query->where(Press::authorSlug(), $slug);
+            });
+    }
+    
     
     /**
      * Scope a query to order posts by published at where they are published.
