@@ -29,7 +29,10 @@ Up next, you need to publish the package's config file that includes some defaul
 
 `php artisan vendor:publish --tag=press`
 
-You will now find the config file located in `/config/press.php`
+You will now find the config file located in `/config/press.php` you can also update the migrations if you need to extend the functionality of press.
+
+### Add your new service PressServiceProvider to config/spp.php in the providers section
+
 
 ### Migrate Database
 
@@ -62,8 +65,17 @@ You are now a blogger!
 ***make sure to change the author: (slug) to a user or valid model that contains a mathing slug in your bound table. That table will need a valid slug field, and either a name field or an accessor that can retrieve the field "name"*** 
 ```
 
+## Extending Press
+
+- create pinned class example steps
+  - add pinned class to the press service provider
+  - update pinned process if required
+
+
 ### Course
 This repo holds is the source code for the Laravel Package Development course found here - https://coderstape.com/series/1-laravel-package-development. Be warned, this source code and course is for educational purposes only and may not be production ready. Use at your own risk.
+
+
 
 ## BASIC LAYOUTS & LIVEWIRE COMPONENTS
 
