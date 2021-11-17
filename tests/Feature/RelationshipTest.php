@@ -34,13 +34,16 @@ test('a tag can have many posts', function () {
 test('a post has an author', function () {
     $author = factory(Author::class)->create();
     $post   = factory(Post::class)->create();
+    
     $post->authors()->sync([
         'press_author_id'   => $author->id,
         'press_author_type' => get_class($author),
     
     ]);
     
-    expect($post->authors->first())->toBeSameModel($author);
+    expect($post->authors->first())
+        ->toExist()
+        ->toBeSameModelAs($author);
     
 });
 

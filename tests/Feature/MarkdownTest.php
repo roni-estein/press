@@ -85,7 +85,7 @@ test('a_date_field_gets_parsed', function() {
     
     expect($data)
         ->date->toBeInstanceOf(Carbon::class)
-        ->date->toHaveDate('1988-05-14');
+        ->date->toBeSameDayAs('1988-05-14');
     
 });
 

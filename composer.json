@@ -24,7 +24,7 @@
         "laravel/legacy-factories": "^1.0",
         "phpunit/phpunit": "^9.3.10",
         "pestphp/pest": "^1.8",
-        "pestphp/pest-plugin-laravel": "^1.0"
+        "defstudio/pest-plugin-laravel-expectations": "v1.0.6"
     },
     "autoload": {
         "psr-4": {
