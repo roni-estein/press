@@ -39,9 +39,13 @@ class Author extends FieldContract
             abort(422,
                 "\n\n" . 'No Author found in the table "' .
                 Press::authorModel()::make()->getTable() .
-                '" with the '.Press::authorSlug().': ' . authorFromException($e) . "\nCheck for spelling errors\n");
+                '" with the '.Press::authorSlug().': ' . static::authorFromException($e) . "\nCheck for spelling errors\n");
         }
-        
-        
     }
+    
+    protected static function authorFromException(ModelNotFoundException $e)
+    {
+        return $e->getTrace()[1]['args'][0];
+    }
+    
 }
